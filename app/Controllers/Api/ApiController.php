@@ -263,5 +263,24 @@ class ApiController extends ResourceController
       return $this->respondCreated($response);
    }
 
-   function deleteBlog($blog_id) {}
+   function deleteBlog($blog_id) {
+      $blog_obj = new BlogModel();
+
+      $blog_is_exist = $blog_obj->find($blog_id);
+
+      if(!empty($blog_is_exist)) {
+
+         $blog_obj->delete($blog_id);
+
+         $response = [
+				"status" => 200,
+				"message" => "Blog deleted successfully",
+				"error" => false,
+				"data" => []
+			];
+
+      }
+
+      return $this->respondCreated($response);
+   }
 }
