@@ -31,6 +31,21 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 
+$routes->group("api", ["namespace" => "App\Controllers\Api", "filter" => "basicauth"], function($routes) {
+   
+   	// Category
+	$routes->post("create-category", "ApiController::createCategory");
+	$routes->get("list-category", "ApiController::listCategory");
+
+	// Blogs
+	$routes->post("create-blog", "ApiController::createBlog");
+	$routes->get("list-blogs", "ApiController::listBlogs");
+	$routes->get("single-blog/(:num)", "ApiController::singleBlogDetail/$1");
+	$routes->put("update-blog/(:num)", "ApiController::updateBlog/$1");
+	$routes->delete("delete-blog/(:num)", "ApiController::deleteBlog/$1");
+    
+});
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
